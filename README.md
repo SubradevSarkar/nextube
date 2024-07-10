@@ -4,7 +4,7 @@
 
 ## Description
 
-**MIRADA** is a versatile and user-friendly tool designed to download and merge audio and video streams from YouTube seamlessly. By leveraging the capabilities of `ytdl-core` and `ffmpeg`, MIRADA ensures high-quality outputs with minimal effort. MIRADA is available as a [Google Chrome extension](#-Chrome-Extension) for easy access, and it can also be used as a [command-line interface (CLI)](#-CLI) for advanced users.
+**MIRADA** is a versatile and user-friendly tool designed to download and merge audio and video streams from YouTube seamlessly. By leveraging the capabilities of `ytdl-core` and `ffmpeg`, MIRADA ensures high-quality outputs with minimal effort. MIRADA is available as a [Google Chrome extension](#chrome-extension) for easy access, and it can also be used as a [command-line interface (CLI)](#cli) for advanced users.
 
 ## Motto
 
