@@ -1,5 +1,5 @@
 <p align="center">
-   <img alt="MIRADA Logo" src="[https://firebasestorage.googleapis.com/v0/b/epiceats-5cf87.appspot.com/o/logo%2Feplogo.svg?alt=media&token=3a942654-d7cc-46f7-8c92-b32ca46b8e45](https://firebasestorage.googleapis.com/v0/b/sk-global-d834d.appspot.com/o/logo%2Fmorada_icon.png?alt=media&token=784e25e4-977d-497e-aafe-6579011c4f75)">
+   <img alt="MIRADA Logo" src="https://firebasestorage.googleapis.com/v0/b/sk-global-d834d.appspot.com/o/logo%2Fmorada_icon.png?alt=media&token=784e25e4-977d-497e-aafe-6579011c4f75">
 </p>
 
 ## Description
