@@ -1,4 +1,4 @@
-<p align="center">
+<p align="center" style="text-align:center">
    <img alt="MIRADA Logo" src="https://firebasestorage.googleapis.com/v0/b/sk-global-d834d.appspot.com/o/logo%2Fmorada_icon.png?alt=media&token=784e25e4-977d-497e-aafe-6579011c4f75">
    <h4 style="text-weight:bold">Simplify Streaming, Amplify Quality.</h4>
 </p>
