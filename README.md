@@ -42,7 +42,7 @@ MIRADA simplifies the entire process by providing a single, easy-to-use solution
 
 1. Clone this repository:
    ```sh
-   git clone https://github.com/your-username/mirada.git
+   https://github.com/SubradevSarkar/mirada.git
    ```
 1. Install the dependencies:
    ```sh
