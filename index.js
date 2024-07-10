@@ -1,10 +1,13 @@
+#!/usr/bin/env node
+
 // index.js
 
-const cp = require("child_process");
-const readline = require("readline");
-const ytdl = require("ytdl-core");
-const ffmpeg = require("ffmpeg-static");
-// const agent = require("./yt_proxy");
+import cp from "child_process";
+import readline from "readline";
+import ytdl from "ytdl-core";
+import ffmpeg from "ffmpeg-static";
+import chalk from "chalk";
+// import agent from "./yt_proxy"
 
 // Configuration and Constants
 const progressbarInterval = 1000;
@@ -24,27 +27,29 @@ const toMB = (i) => (i / 1024 / 1024).toFixed(2);
 const showProgress = () => {
   readline.cursorTo(process.stdout, 0);
   process.stdout.write(
-    `Audio  | ${(
-      (tracker.audio.downloaded / tracker.audio.total) *
-      100
-    ).toFixed(2)}% processed (${toMB(tracker.audio.downloaded)}MB of ${toMB(
-      tracker.audio.total
-    )}MB).\n`
+    `Audio  | ${chalk.green(
+      ((tracker.audio.downloaded / tracker.audio.total) * 100).toFixed(2)
+    )}% processed (${chalk.green(
+      toMB(tracker.audio.downloaded)
+    )}MB of ${chalk.green(toMB(tracker.audio.total))}MB).\n`
   );
   process.stdout.write(
-    `Video  | ${(
-      (tracker.video.downloaded / tracker.video.total) *
-      100
-    ).toFixed(2)}% processed (${toMB(tracker.video.downloaded)}MB of ${toMB(
-      tracker.video.total
-    )}MB).\n`
+    `Video  | ${chalk.yellow(
+      ((tracker.video.downloaded / tracker.video.total) * 100).toFixed(2)
+    )}% processed (${chalk.yellow(
+      toMB(tracker.video.downloaded)
+    )}MB of ${chalk.yellow(toMB(tracker.video.total))}MB).\n`
   );
   process.stdout.write(
-    `Merged | processing frame ${tracker.merged.frame} (at ${tracker.merged.fps} fps => ${tracker.merged.speed}).\n`
+    `Merged | processing frame ${chalk.cyan(
+      tracker.merged.frame
+    )} (at ${chalk.cyan(tracker.merged.fps)} fps => ${chalk.cyan(
+      tracker.merged.speed
+    )}).\n`
   );
   process.stdout.write(
-    `Running for: ${((Date.now() - tracker.start) / 1000 / 60).toFixed(
-      2
+    `Running for: ${chalk.magenta(
+      ((Date.now() - tracker.start) / 1000 / 60).toFixed(2)
     )} Minutes.\n`
   );
   readline.moveCursor(process.stdout, 0, -3);
@@ -79,7 +84,7 @@ const startFFmpeg = (audioStream, videoStream) => {
   );
 
   ffmpegProcess.on("close", () => {
-    console.log("done");
+    console.log(chalk.bold.green("Done"));
     process.stdout.write("\n\n\n\n");
     clearInterval(progressbarHandle);
   });
@@ -109,23 +114,34 @@ const startFFmpeg = (audioStream, videoStream) => {
 
 // Main function to process video
 const processVideo = (url) => {
-  tracker.start = Date.now();
+  try {
+    if (!ytdl.validateURL(url)) {
+      console.error(chalk.red("Invalid URL"));
+      process.exit(1);
+    }
 
-  const audioStream = ytdl(url, {
-    quality: "highestaudio",
-    // requestOptions: { agent },
-  }).on("progress", (_, downloaded, total) => {
-    tracker.audio = { downloaded, total };
-  });
+    tracker.start = Date.now();
+    console.log(chalk.blue("Starting download..."));
 
-  const videoStream = ytdl(url, {
-    quality: "highestvideo",
-    // requestOptions: { agent },
-  }).on("progress", (_, downloaded, total) => {
-    tracker.video = { downloaded, total };
-  });
+    const audioStream = ytdl(url, {
+      quality: "highestaudio",
+      // requestOptions: { agent },
+    }).on("progress", (_, downloaded, total) => {
+      tracker.audio = { downloaded, total };
+    });
 
-  startFFmpeg(audioStream, videoStream);
+    const videoStream = ytdl(url, {
+      quality: "highestvideo",
+      // requestOptions: { agent },
+    }).on("progress", (_, downloaded, total) => {
+      tracker.video = { downloaded, total };
+    });
+
+    startFFmpeg(audioStream, videoStream);
+  } catch (error) {
+    console.error(chalk.red(`Error: ${error.message}`));
+    process.exit(1);
+  }
 };
 
 // Export the main function
