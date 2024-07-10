@@ -1,6 +1,6 @@
 # MIRADA
 
-![MIRADA Logo](path_to_logo_image)
+![MIRADA Logo](https://drive.google.com/file/d/1PkUuVkA7Er637Tgyg7bIaO2tADZv2F4P/view?usp=drive_link)
 
 ## Description
 
