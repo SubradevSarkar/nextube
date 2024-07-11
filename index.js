@@ -4,10 +4,12 @@
 
 import cp from "child_process";
 import readline from "readline";
-import ytdl from "ytdl-core";
+// import ytdl from "ytdl-core";
+import ytdl from "@distube/ytdl-core";
 import ffmpeg from "ffmpeg-static";
 import chalk from "chalk";
 // import agent from "./yt_proxy"
+// import { agentForARandomIP } from "./utils/yt_ipRotate.js";
 
 // Configuration and Constants
 const progressbarInterval = 1000;
@@ -56,7 +58,7 @@ const showProgress = () => {
 };
 
 // Function to start the ffmpeg process
-const startFFmpeg = (audioStream, videoStream) => {
+const startFFmpeg = (audioStream, videoStream, outputPath) => {
   const ffmpegProcess = cp.spawn(
     ffmpeg,
     [
@@ -75,7 +77,8 @@ const startFFmpeg = (audioStream, videoStream) => {
       "1:v",
       "-c:v",
       "copy",
-      "out.mkv",
+      // "/home/skdev/Downloads/out.mkv",
+      `${outputPath}.mkv`,
     ],
     {
       windowsHide: true,
@@ -113,36 +116,116 @@ const startFFmpeg = (audioStream, videoStream) => {
 };
 
 // Main function to process video
-const processVideo = (url) => {
+const processVideo = (url, selected_quality, outputPath) => {
   try {
-    if (!ytdl.validateURL(url)) {
-      console.error(chalk.red("Invalid URL"));
-      process.exit(1);
-    }
-
     tracker.start = Date.now();
     console.log(chalk.blue("Starting download..."));
 
     const audioStream = ytdl(url, {
       quality: "highestaudio",
+      // agent: agentForARandomIP,
       // requestOptions: { agent },
     }).on("progress", (_, downloaded, total) => {
       tracker.audio = { downloaded, total };
     });
 
     const videoStream = ytdl(url, {
-      quality: "highestvideo",
+      quality: `${selected_quality}`,
+      // agent: agentForARandomIP,
       // requestOptions: { agent },
     }).on("progress", (_, downloaded, total) => {
       tracker.video = { downloaded, total };
     });
 
-    startFFmpeg(audioStream, videoStream);
+    startFFmpeg(audioStream, videoStream, outputPath);
   } catch (error) {
     console.error(chalk.red(`Error: ${error.message}`));
     process.exit(1);
   }
 };
 
+// Helper function to sanitize file names
+function sanitizeTitle(title) {
+  return title.replace(/[^a-zA-Z0-9]/g, "_");
+}
+
+const getInfo = async (url) => {
+  if (!ytdl.validateURL(url)) {
+    console.error(chalk.red("Invalid URL"));
+    process.exit(1);
+  }
+
+  const info = await ytdl.getInfo(url);
+
+  const title = info.videoDetails.title;
+
+  const video_qualities = info.formats
+    .filter(
+      (format) => !format.audioBitrate && format.mimeType.includes("video")
+    )
+    .sort((a, b) => {
+      const a_quality = Number(a.qualityLabel.split("p")[0]);
+      const b_quality = Number(b.qualityLabel.split("p")[0]);
+
+      return b_quality - a_quality;
+    });
+
+  // // omit the duplicates and select the optimized qualities
+  const filteredData = Object.values(
+    video_qualities.reduce((acc, item) => {
+      if (!acc[item.qualityLabel]) {
+        acc[item.qualityLabel] = item;
+      } else {
+        const existing = acc[item.qualityLabel];
+        if (item.bitrate > existing.bitrate) {
+          if (item.codecs === "vp9") {
+            acc[item.qualityLabel] = item;
+          } else if (existing.codecs !== "vp9") {
+            acc[item.qualityLabel] = item;
+          }
+        } else if (existing.codecs !== "vp9" && item.codecs === "vp9") {
+          acc[item.qualityLabel] = item;
+        }
+      }
+      return acc;
+    }, {})
+  ).map((format) => {
+    return {
+      name: format.qualityLabel,
+      value: format.itag,
+      rate: format.bitrate,
+      codac: format.codecs,
+    };
+  });
+
+  return { title, video_qualities: filteredData };
+};
+
+import { welcome, askme, spinLoading } from "./utils/command.js";
+import path from "path";
+
+async function main() {
+  await welcome();
+
+  // input - url
+  const url = await askme.youtubeUrl();
+  // checkUrl
+  await spinLoading("Video Loading ...");
+  const { title, video_qualities } = await getInfo(url);
+
+  // video quality options
+  // input - options
+  const [selected_quality] = await askme.videoQuality(video_qualities);
+
+  // input - download path
+  const basePath = await askme.downloadPath();
+
+  // snitized title and prepare output path
+  const outputPath = path.join(basePath, sanitizeTitle(title));
+
+  processVideo(url, selected_quality, outputPath);
+}
+
 // Export the main function
-processVideo("https://www.youtube.com/watch?v=_i7MAyvYJEM");
+// processVideo("https://www.youtube.com/watch?v=fMdkopYylvI");
+main();
