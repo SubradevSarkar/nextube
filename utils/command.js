@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import chalkAnimation from "chalk-animation";
 import { input } from "@inquirer/prompts";
-import checkbox, { Separator } from "@inquirer/checkbox";
+import select, { Separator } from "@inquirer/select";
 import { createSpinner } from "nanospinner";
 import os from "os";
 import path from "path";
@@ -51,7 +51,7 @@ export const askme = {
   },
 
   videoQuality: async (options) => {
-    const answer = await checkbox({
+    const answer = await select({
       message: "Select video ",
       choices: options,
       loop: false,

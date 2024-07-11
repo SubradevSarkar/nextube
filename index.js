@@ -11,6 +11,8 @@ import chalk from "chalk";
 // import agent from "./yt_proxy"
 // import { agentForARandomIP } from "./utils/yt_ipRotate.js";
 
+let finalPath = "";
+
 // Configuration and Constants
 const progressbarInterval = 1000;
 let progressbarHandle = null;
@@ -90,6 +92,10 @@ const startFFmpeg = (audioStream, videoStream, outputPath) => {
     console.log(chalk.bold.green("Done"));
     process.stdout.write("\n\n\n\n");
     clearInterval(progressbarHandle);
+    console.log(
+      chalk.bgGreenBright(chalk.blue("    🎉  Download Completed      "))
+    );
+    console.log(chalk.blue(` ${finalPath}    `));
   });
 
   ffmpegProcess.stdio[3].on("data", (chunk) => {
@@ -215,13 +221,14 @@ async function main() {
 
   // video quality options
   // input - options
-  const [selected_quality] = await askme.videoQuality(video_qualities);
+  const selected_quality = await askme.videoQuality(video_qualities);
 
   // input - download path
   const basePath = await askme.downloadPath();
 
   // snitized title and prepare output path
   const outputPath = path.join(basePath, sanitizeTitle(title));
+  finalPath = basePath;
 
   processVideo(url, selected_quality, outputPath);
 }

@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "@distube/ytdl-core": "^4.13.5",
-    "@inquirer/checkbox": "^2.3.10",
     "@inquirer/prompts": "^5.1.2",
+    "@inquirer/select": "^2.3.10",
     "chalk": "^5.3.0",
     "chalk-animation": "^2.0.3",
     "ffmpeg-static": "^5.2.0",
