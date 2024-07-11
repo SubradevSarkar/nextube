@@ -1,6 +1,6 @@
 {
   "name": "mirada",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "MIRADA is a versatile and user-friendly tool designed to download and merge audio and video streams from YouTube seamlessly. By leveraging the capabilities of ytdl-core and ffmpeg, MIRADA ensures high-quality outputs with minimal effort",
   "main": "index.js",
   "type": "module",
@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "subradev sarkar",
-  "license": "ISC",
+  "license": "MIT",
   "bin": {
     "mirada": "index.js"
   },
