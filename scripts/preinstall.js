@@ -2,6 +2,8 @@
 // const __dirname = path.resolve();
 // import { execSync } from "child_process";
 
+import { pack_name } from "./brand.js";
+
 const isGlobal = process.argv.includes("-g");
 
 console.log(888, com);
@@ -14,7 +16,7 @@ function checkGlobalInstallation() {
     ==========================================
     Please install the package using the following command:
     
-    =>  npm install -g @devpm/mirada +++++++++
+    =>  npm install -g ${pack_name} 
     
     For more information, please visit our documentation.
     `);
@@ -32,7 +34,7 @@ try {
   Error Details: ${error.message}
   Please try installing the package globally using the following command:
   
-  =>  npm install -g @devpm/mirada ------
+  =>  npm install -g ${pack_name} 
 
   If the issue persists, please report it to our support team.
   `);

@@ -4,13 +4,15 @@ import { input } from "@inquirer/prompts";
 import select, { Separator } from "@inquirer/select";
 import { createSpinner } from "nanospinner";
 import os from "os";
+import fs from "fs";
 import path from "path";
+import { brand_name } from "../scripts/brand.js";
 
 let sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 
 export async function welcome() {
   const rainbowTitle = chalkAnimation.rainbow(
-    "MIRADA Ultimate download manager\n "
+    `${brand_name.toUpperCase()} Ultimate download manager\n `
   );
 
   await sleep();
@@ -97,22 +99,16 @@ export async function spinLoading(message) {
 }
 
 function getDefaultDownloadLocation() {
-  const isWindows = process.platform === "win32";
-  const isLinux = process.platform === "linux";
-  const isMac = process.platform === "darwin";
-
   const homeDir = os.homedir();
-  let defaultPath = "";
+  const downloadPath = path.join(homeDir, "Downloads");
 
-  if (isWindows) {
-    defaultPath = path.join(homeDir, "Downloads");
-  } else if (isLinux) {
-    defaultPath = path.join(homeDir, "Downloads");
-  } else if (isMac) {
-    defaultPath = path.join(homeDir, "Downloads");
+  if (!fs.existsSync(downloadPath)) {
+    // If it doesn't exist, create the folder
+    fs.mkdirSync(downloadPath, { recursive: true });
+    console.log(`Created folder: ${downloadPath}`);
   }
 
-  return defaultPath;
+  return downloadPath;
 }
 
 // // testing purpose only ------------------

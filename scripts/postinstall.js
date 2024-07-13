@@ -4,7 +4,7 @@ import path from "path";
 // const __dirname = path.resolve();
 import { execSync } from "child_process";
 
-const pack_name = "@devpm/mirada";
+import { pack_name } from "./brand.js";
 
 function getGlobalNpmPath() {
   try {
@@ -17,33 +17,23 @@ function getGlobalNpmPath() {
 }
 
 function removeLocalFiles() {
-  const platform = os.platform();
-
-  if (platform === "win32") {
+  try {
     // Delete node_modules folder
     if (fs.existsSync("node_modules")) {
-      execSync("rmdir /s /q node_modules", { stdio: "inherit" });
+      fs.rmSync("node_modules", { recursive: true, force: true });
     }
-
-    // Delete package.json file
-    // execSync("del package.json", { stdio: "inherit" });
 
     // Delete package-lock.json file
     if (fs.existsSync("package-lock.json")) {
-      execSync("del package-lock.json", { stdio: "inherit" });
+      fs.rmSync("package-lock.json", { force: true });
     }
-  } else {
-    // Delete node_modules folder
-    if (fs.existsSync("node_modules")) {
-      execSync("rm -rf node_modules", { stdio: "inherit" });
-    }
-    // Delete package.json file
-    // execSync("rm package.json", { stdio: "inherit" });
 
-    // Delete package-lock.json file
-    if (fs.existsSync("package-lock.json")) {
-      execSync("rm package-lock.json", { stdio: "inherit" });
-    }
+    // Uncomment the following lines if you also want to delete package.json
+    // if (fs.existsSync("package.json")) {
+    //   fs.rmSync("package.json", { force: true });
+    // }
+  } catch (error) {
+    console.error("Error occurred while deleting files and folders:", error);
   }
 }
 
@@ -76,19 +66,27 @@ function isGlobalInstallation() {
   return isPathExist;
 }
 
-if (!isGlobalInstallation()) {
-  console.error(`
+try {
+  if (!isGlobalInstallation()) {
+    console.error(`
     ==========================================
     ERROR: This package must be installed globally.
     ==========================================
     Please install the package using the following command:
 
-    =>  npm install -g ${pack_name} 
+    On Windows:
+      =>  npm install -g ${pack_name}
+
+    On Linux/UNIX:
+      =>  sudo npm install -g ${pack_name}
 
     For more information, please visit our documentation.
     `);
 
-  checkInstallation();
+    checkInstallation();
 
+    process.exit(1);
+  }
+} catch (error) {
   process.exit(1);
 }

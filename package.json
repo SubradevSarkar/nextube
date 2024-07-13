@@ -1,7 +1,7 @@
 {
-  "name": "@devpm/mirada",
-  "version": "1.0.0",
-  "description": "MIRADA is a versatile and user-friendly tool designed to download and merge audio and video streams from YouTube seamlessly. By leveraging the capabilities of ytdl-core and ffmpeg, MIRADA ensures high-quality outputs with minimal effort",
+  "name": "@devpm/nextube",
+  "version": "1.0.1",
+  "description": "NEXTUBE is a versatile and user-friendly tool designed to download and merge audio and video streams from YouTube seamlessly. By leveraging the capabilities of ytdl-core and ffmpeg, NEXTUBE ensures high-quality outputs with minimal effort",
   "main": "index.js",
   "type": "module",
   "preferGlobal": true,
@@ -12,8 +12,9 @@
   },
   "author": "subradev sarkar",
   "license": "MIT",
+  "keywords": ["npm", "Video", "Audio", "Download", "Streaming"],
   "bin": {
-    "mirada": "index.js"
+    "nextube": "index.js"
   },
   "dependencies": {
     "@distube/ytdl-core": "^4.13.5",
