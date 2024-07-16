@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/SubradevSarkar/nextube/compare/v1.3.0...v1.4.0) (2024-07-16)
+
+
+### Features
+
+* update homepage info ([b825a53](https://github.com/SubradevSarkar/nextube/commit/b825a532fe1067b09d055d97cdf134037338468b))
+
+
+
 # [1.3.0](https://github.com/SubradevSarkar/nextube/compare/v1.2.0...v1.3.0) (2024-07-16)
 
 
