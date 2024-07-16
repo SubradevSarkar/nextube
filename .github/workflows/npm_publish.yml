@@ -1,0 +1,29 @@
+
+name: "NPM Publish"
+
+on:
+  push:
+    branches: [ "prod/nextube-cli" ]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x,20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        registry-url: "https://registry.npmjs.org"
+        cache: 'npm'
+    - name: Publish package on NPM 📦
+      run: npm publish --access public
+      env: 
+       NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
