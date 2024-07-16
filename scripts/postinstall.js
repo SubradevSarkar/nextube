@@ -4,6 +4,8 @@ import { execSync } from "child_process";
 
 import { pack_name } from "./brand.js";
 
+// safe checkered
+
 function getGlobalNpmPath() {
   try {
     const npmPrefix = path.resolve(execSync("npm root -g").toString().trim());
