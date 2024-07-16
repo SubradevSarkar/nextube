@@ -1,3 +1,12 @@
+# [1.2.0](https://github.com/SubradevSarkar/nextube/compare/v1.4.0...v1.2.0) (2024-07-16)
+
+
+### Features
+
+* check released ([09ef28d](https://github.com/SubradevSarkar/nextube/commit/09ef28d593f9395db57b4db1833bb7571ba60aee))
+
+
+
 # [1.4.0](https://github.com/SubradevSarkar/nextube/compare/v1.3.0...v1.4.0) (2024-07-16)
 
 
