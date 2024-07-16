@@ -1,11 +1,8 @@
 import cp from "child_process";
 import readline from "readline";
-// import ytdl from "ytdl-core";
 import ytdl from "@distube/ytdl-core";
 import ffmpeg from "ffmpeg-static";
 import chalk from "chalk";
-// import agent from "./yt_proxy"
-// import { agentForARandomIP } from "./utils/yt_ipRotate.js";
 
 // Configuration and Constants
 const progressbarInterval = 1000;
@@ -20,40 +17,6 @@ const tracker = {
 };
 
 const toMB = (i) => (i / 1024 / 1024).toFixed(2);
-
-/*
-// // Show progress function -------- 1
-// const showProgress = () => {
-//   readline.cursorTo(process.stdout, 0);
-//   process.stdout.write(
-//     `Audio  | ${chalk.green(
-//       ((tracker.audio.downloaded / tracker.audio.total) * 100).toFixed(2)
-//     )}% processed (${chalk.green(
-//       toMB(tracker.audio.downloaded)
-//     )}MB of ${chalk.green(toMB(tracker.audio.total))}MB).\n`
-//   );
-//   process.stdout.write(
-//     `Video  | ${chalk.yellow(
-//       ((tracker.video.downloaded / tracker.video.total) * 100).toFixed(2)
-//     )}% processed (${chalk.yellow(
-//       toMB(tracker.video.downloaded)
-//     )}MB of ${chalk.yellow(toMB(tracker.video.total))}MB).\n`
-//   );
-//   process.stdout.write(
-//     `Merged | processing frame ${chalk.cyan(
-//       tracker.merged.frame
-//     )} (at ${chalk.cyan(tracker.merged.fps)} fps => ${chalk.cyan(
-//       tracker.merged.speed
-//     )}).\n`
-//   );
-//   process.stdout.write(
-//     `Running for: ${chalk.magenta(
-//       ((Date.now() - tracker.start) / 1000 / 60).toFixed(2)
-//     )} Minutes.\n`
-//   );
-//   readline.moveCursor(process.stdout, 0, -3);
-// };
-*/
 
 // Function to show overall progress ------- 2
 const showProgress = () => {
@@ -120,7 +83,6 @@ const startFFmpeg = (audioStream, videoStream, outputPath) => {
       "1:v",
       "-c:v",
       "copy",
-      // "/home/skdev/Downloads/out.mkv",
       `${outputPath}.mkv`,
     ],
     {
@@ -131,7 +93,6 @@ const startFFmpeg = (audioStream, videoStream, outputPath) => {
 
   ffmpegProcess.on("close", () => {
     showProgress();
-    // console.log(chalk.bold.green("Completed  "));
     process.stdout.write("\n\n\n\n");
     clearInterval(progressbarHandle);
     console.log(

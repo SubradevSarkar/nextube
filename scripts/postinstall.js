@@ -1,7 +1,5 @@
 import fs from "fs";
-import os from "os";
 import path from "path";
-// const __dirname = path.resolve();
 import { execSync } from "child_process";
 
 import { pack_name } from "./brand.js";
@@ -27,11 +25,6 @@ function removeLocalFiles() {
     if (fs.existsSync("package-lock.json")) {
       fs.rmSync("package-lock.json", { force: true });
     }
-
-    // Uncomment the following lines if you also want to delete package.json
-    // if (fs.existsSync("package.json")) {
-    //   fs.rmSync("package.json", { force: true });
-    // }
   } catch (error) {
     console.error("Error occurred while deleting files and folders:", error);
   }
