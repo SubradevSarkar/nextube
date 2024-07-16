@@ -10,6 +10,7 @@ async function main() {
   // input - url
 
   const url = await askme.youtubeUrl();
+
   // checkUrl
   await spinLoading("Video Loading ...");
   const { title, video_qualities } = await getInfo(url);
