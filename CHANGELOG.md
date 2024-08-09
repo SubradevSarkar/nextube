@@ -1,3 +1,12 @@
+## [1.4.1](https://github.com/SubradevSarkar/nextube/compare/v1.4.0...v1.4.1) (2024-08-09)
+
+
+### Bug Fixes
+
+* Update README.md ([9b06ac3](https://github.com/SubradevSarkar/nextube/commit/9b06ac37d28487d0138b974b1821b2a13f597d4b))
+
+
+
 # [1.4.0](https://github.com/SubradevSarkar/nextube/compare/v1.3.0...v1.4.0) (2024-07-16)
 
 
