@@ -125,5 +125,4 @@ Choose your platform and Installing Node.js via [Package Managers](https://nodej
 - If you encounter issues with downloading, such as delays in **_starting the download_** or **_failed downloads_**, please try changing the **download location**. This adjustment might help resolve the problem.
 
 ## License
-
 This project is licensed under the MIT License - see the `LICENSE.md` file for details.
