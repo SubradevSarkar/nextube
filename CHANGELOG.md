@@ -1,3 +1,12 @@
+## [1.4.2](https://github.com/SubradevSarkar/nextube/compare/v1.4.1...v1.4.2) (2024-08-12)
+
+
+### Bug Fixes
+
+* update to latest version ([1f91173](https://github.com/SubradevSarkar/nextube/commit/1f91173fe7328d8adc3c9fd4c11bfd5c153a9156))
+
+
+
 ## [1.4.1](https://github.com/SubradevSarkar/nextube/compare/v1.4.0...v1.4.1) (2024-08-09)
 
 
@@ -43,20 +52,6 @@
 * check released ([09ef28d](https://github.com/SubradevSarkar/nextube/commit/09ef28d593f9395db57b4db1833bb7571ba60aee))
 * koll ([245db1a](https://github.com/SubradevSarkar/nextube/commit/245db1a6e5747e345f11e97f19c17492f022e76a))
 * use check 3 ([4b70dce](https://github.com/SubradevSarkar/nextube/commit/4b70dce6e06f65845252c317c7e0a72e9dffb560))
-
-
-
-# [1.1.0](https://github.com/SubradevSarkar/nextube/compare/v0.1.0...v1.1.0) (2024-07-16)
-
-
-### Bug Fixes
-
-* check for 2 ([9160998](https://github.com/SubradevSarkar/nextube/commit/9160998aaf1ae0c72b2f4b424717a5688480b129))
-
-
-### Features
-
-* check with minor ([2306487](https://github.com/SubradevSarkar/nextube/commit/23064873689f648f5b6b33dcde50ef2d76dc9683))
 
 
 
