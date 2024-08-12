@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { execSync } from "child_process";
+import "dotenv/config";
 
 import { pack_name } from "./brand.js";
 
@@ -62,7 +63,9 @@ function isGlobalInstallation() {
 }
 
 try {
-  if (!isGlobalInstallation()) {
+  const ENV = process?.env?.NODE_ENV === "development";
+
+  if (!ENV && !isGlobalInstallation()) {
     console.error(`
     ==========================================
     ERROR: This package must be installed globally.

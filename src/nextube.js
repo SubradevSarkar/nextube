@@ -141,7 +141,7 @@ const getInfo = async (url) => {
 
   const video_qualities = info.formats
     .filter(
-      (format) => !format.audioBitrate && format.mimeType.includes("video")
+      (format) => !format?.audioBitrate && format?.mimeType?.includes("video")
     )
     .sort((a, b) => {
       const a_quality = Number(a.qualityLabel.split("p")[0]);

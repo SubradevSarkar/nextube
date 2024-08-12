@@ -28,11 +28,12 @@
   },
   "homepage": "https://github.com/SubradevSarkar/nextube/tree/main?tab=readme-ov-file",
   "dependencies": {
-    "@distube/ytdl-core": "^4.13.5",
+    "@distube/ytdl-core": "^4.14.4",
     "@inquirer/prompts": "^5.1.2",
     "@inquirer/select": "^2.3.10",
     "chalk": "^5.3.0",
     "chalk-animation": "^2.0.3",
+    "dotenv": "^16.4.5",
     "ffmpeg-static": "^5.2.0",
     "https-proxy-agent": "^7.0.5",
     "nanospinner": "^1.1.0",
